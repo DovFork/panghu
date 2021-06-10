@@ -2,7 +2,7 @@
 
 [task_local]
 #柠檬我是大老板农场
- 0,2 0 * * * http://nm66.top/jd_wsdlb.js, tag=柠檬我是大老板农场, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+5 6-18/6 * * * http://nm66.top/jd_wsdlb.js, tag=柠檬我是大老板农场, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 */
 
 
@@ -81,11 +81,28 @@ if ($.info.data.firstJoinFlag === true) {
 }else if ($.info.data.firstJoinFlag === false) {
     
         console.log(`\n当前种植水果：${$.info.data.plantInfo[0].cropName}\n当前阶段: ${$.info.data.plantInfo[0].nowStep}\n当前下一阶段还需要浇水：${$.info.data.plantInfo[0].upgradeWateringNum}次`)
-       
+       await help($.info.data.encPin)
         
         allMessage += `京东账号${$.index}-${$.nickName || $.UserName}\n当前种植水果：${$.info.data.plantInfo[0].cropName}\n当前阶段: ${$.info.data.plantInfo[0].nowStep}\n当前下一阶段还需要浇水：${$.info.data.plantInfo[0].upgradeWateringNum}次${$.index !== cookiesArr.length ? '\n\n' : '\n\n'}`;
+        
+        if ($.do.code === 0){       
+ let taskList = $.do.data
+       for (let i = 0 ; i < taskList.length; i++){
+       taskType = taskList[i].taskType
+       id = taskList[i].id
+       taskSourceUrl = taskList[i].taskSourceUrl
+                        
+        await dotask(taskType,id,taskSourceUrl)
+        await dotask(taskType,id,"70511671722")
+             
+        if ($.qd.code === 2005 ){
+             $.log(`\n${$.qd.errMsg}`)
+             
+     }
+     }
+ }
 //if ($.info.data.ownWater * 0.1 > 1 ){
-    for (let i = 0 ; i < 5; i++){
+    for (let i = 0 ; i < 3; i++){
         await $.wait(5000)
      await jiaoshui($.info.data.earthInfo[0].nowPlantId)
     if (watering.code === 20004 ){
@@ -110,22 +127,7 @@ if ($.info.data.firstJoinFlag === true) {
      
 }
 
-if ($.do.code === 0){       
- let taskList = $.do.data
-       for (let i = 0 ; i < taskList.length; i++){
-       taskType = taskList[i].taskType
-       id = taskList[i].id
-       taskSourceUrl = taskList[i].taskSourceUrl
-                        
-        await dotask(taskType,id,taskSourceUrl)
-        await dotask(taskType,id,"70511671722")
-             
-        if ($.qd.code === 2005 ){
-             $.log(`\n${$.qd.errMsg}`)
-             
-     }
-     }
- }
+
  
 }
 
@@ -277,7 +279,34 @@ headers: {
     });
 }
 
+function help(userpin) {
+    return new Promise(async (resolve) => {
 
+                let options = {
+    url: `https://thebigboss.jd.com/?id=fzf6tK4xMfE2ICK4-T_iUw&enter=share&userpin=${userpin}&task=92&ad_od=share&utm_source=androidapp&utm_medium=appshare&utm_campaign=t_335139774&utm_term=Wxfriends`,
+
+headers: {
+"Origin": "https://thebigboss.jd.com",
+"Host": "thebigboss.jd.com",
+      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.5(0x18000528) NetType/WIFI Language/zh_CN",
+      "Cookie": cookie,
+      }
+                }
+      
+        $.get(options, async (err, resp, data) => {
+            try {
+
+                  //$.helpinfo = JSON.parse(data);
+
+                  
+            } catch (e) {
+                $.logErr(e, resp);
+            } finally {
+                resolve();
+            }
+        });
+    });
+}
 
 
 
