@@ -1,8 +1,9 @@
 /*
-变量填写 你要参加砍价的商品ID
-运行即可查看商品ID
-比如export skuId="10025687524091" //只需要填写商品ID变量
-比如export activity="854366883120689152" //日志查看你的activity
+第一步 运行脚本一次日志查看商品ID
+获取你要砍价的ID后变量填写
+export skuId="这里填获取的商品ID"
+第二部 再运行一次日志查看商品activityId变量填写
+export activity="这里填获取的商品activityId" 
 入口 京东 我的 0元砍价
 */
 // [task_local]
@@ -58,7 +59,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
         }
         continue
       }
-
+      await list1()
       await list()
       await join()
       for (let i = 0 ; i < 5; i++){
@@ -78,7 +79,47 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
   .finally(() => {
     $.done();
   })
+function list1() {
+    return new Promise(async (resolve) => {
 
+                let options = {
+    url: `https://api.m.jd.com`,
+
+    body: `functionId=queryHomePage&body={}&client=wh5&clientVersion=1.0.0`,
+headers: {
+"Origin": "https://h5.m.jd.com",
+"Host": "api.m.jd.com",
+      "User-Agent": "jdltapp;iPhone;3.3.6;14.3;75aeceef3046d8ce11d354ff89af9517a2e4aa18;network/wifi;hasUPPay/0;pushNoticeIsOpen/0;lang/zh_CN;model/iPhone9,2;addressid/;hasOCPay/0;appBuild/1060;supportBestPay/0;pv/56.42;apprpd/;ref/JDLTSubMainPageViewController;psq/38;ads/;psn/75aeceef3046d8ce11d354ff89af9517a2e4aa18|99;jdv/0|kong|t_1001003207_1762319_6901310|jingfen|30578707801140d09fcd54e5cd83bbf7|1621510932517|1621511027;adk/;app_device/IOS;pap/JA2020_3112531|3.3.6|IOS 14.3;Mozilla/5.0 (iPhone; CPU iPhone OS 14_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148;supportJDSHWK/1",
+      "Cookie": cookie,
+      }
+                }
+      
+        $.post(options, async (err, resp, data) => {
+            try {
+
+                    data = JSON.parse(data);
+                 
+                   
+                   
+                    if(data.msg == "success"){
+                     let taskList = data.canBargain  
+                     for (let i = 0 ; i < taskList.length; i++){
+                               
+                               skuName = taskList[i].skuName
+                               Id = taskList[i].skuId
+                               allPrice = taskList[i].allPrice
+                               $.log(`\n商品：${skuName}\n商品ID：${Id}\n商品价格: ${allPrice}`)
+                                   }
+
+                }
+            } catch (e) {
+                $.logErr(e, resp);
+            } finally {
+                resolve();
+            }
+        });
+    });
+}
 function list() {
     return new Promise(async (resolve) => {
 
