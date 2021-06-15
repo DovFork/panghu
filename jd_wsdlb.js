@@ -105,23 +105,29 @@ if ($.info.data.firstJoinFlag === true) {
      }
      }
  }
-if (parseInt(watering.data.property * 0.1) > 1 ){
+
+     await jiaoshui($.info.data.earthInfo[0].nowPlantId)
+    
+     if (watering.success === true ){
+          $.log(parseInt(watering.data.property * 0.1))
+     if (parseInt(watering.data.property * 0.1) > 1 ){
     for (let i = 0 ; i < parseInt(watering.data.property * 0.1); i++){
         await $.wait(3000)
-     await jiaoshui($.info.data.earthInfo[0].nowPlantId)
+        await jiaoshui($.info.data.earthInfo[0].nowPlantId)
     if (watering.code === 20004 ){
         $.log(`\n浇水水滴不足，快去做任务吧`)
           //break 
         }
 
         if (watering.code === 0 ){
-        $.log(`\n${watering.data.speedFarmPlantInfo.cropName}:\n还需水滴：${watering.data.speedFarmPlantInfo.nowStepNeedWater}`)
+        $.log(`\n${watering.data.speedFarmPlantInfo.cropName}:\n还需水滴：${watering.data.speedFarmPlantInfo.nowStepNeedWater}\n还需浇水：${watering.data.speedFarmPlantInfo.upgradeWateringNum}`)
         
         }
 
 }
     
-}           
+}  
+}
 
 
 
