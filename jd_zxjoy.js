@@ -1,5 +1,5 @@
 
-const $ = new Env('柠檬特物ZX雅培');
+const $ = new Env('柠檬特物ZX JOY&DOGA');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 
 const randomCount = $.isNode() ? 20 : 5;
@@ -52,9 +52,13 @@ const JD_API_HOST = `https://api.m.jd.com/client.action`;
                 continue
             }
 
-            await qiandao()
+            await qiandao1()
+            
             await guanzhu()
             await kaika()
+            await cj()
+            await cj1()
+            await $.wait(300)
             await cj()
             await cj1()
         }
@@ -71,6 +75,39 @@ if ($.isNode() && allMessage) {
         $.done();
   })
 
+//https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623631722697&body=%7B%22source%22:%22sign%22,%22activityId%22:1000021,%22encryptProjectId%22:%22uK2fYitTgioETuevoY88bGEts3U%22,%22encryptAssignmentId%22:%2247E6skJcyZx7GSUFXyomLgF1FLCA%22,%22assignmentType%22:5,%22itemId%22:%221%22,%22actionType%22:0%7D
+async function qiandao1(){
+ return new Promise((resolve) => {
+     
+ let plant6_url = {
+   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623718327733&body=%7B%22source%22:%22sign%22,%22activityId%22:1000021,%22encryptProjectId%22:%22uK2fYitTgioETuevoY88bGEts3U%22,%22encryptAssignmentId%22:%2247E6skJcyZx7GSUFXyomLgF1FLCA%22,%22assignmentType%22:5,%22itemId%22:%221%22,%22actionType%22:0%7D',
+        //headers: JSON.parse(kjjhd),
+      headers: {
+
+        "Cookie": cookie,
+         "Origin": "https://prodev.m.jd.com",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
+      }
+        
+   	}
+   $.post(plant6_url,async(error, response, data) =>{
+    try{
+        const result = JSON.parse(data)
+        //console.log(result)
+        if(logs)$.log(data)
+
+          if(result.code == 0){
+$.log(result.data.bizMsg);
+} 
+          
+        }catch(e) {
+          $.logErr(e, response);
+      } finally {
+        resolve();
+      } 
+    })
+   })
+  }
 
 async function qiandao(){
  return new Promise((resolve) => {
@@ -93,7 +130,7 @@ async function qiandao(){
         if(logs)$.log(data)
 
           if(result.code == 0){
-               $.log(result.data.bizMsg);
+              $.log(result.data.bizMsg);
 //await notify.sendNotify(`${$.name} - ${$.UserName}`, `京东账号${$.index} ${$.UserName}`+'\n签到完成');
 } 
           
@@ -110,7 +147,7 @@ async function guanzhu (){
  return new Promise((resolve) => {
      
  let plant6_url = {
-   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623488567284&body={"source":"secondfloor","activityId":1000017,"encryptProjectId":"223UrxFje9Xdf58AbD6fMD6NKMcL","encryptAssignmentId":"JPNFyTx4ebyrt5v5Aowamrb8XRv","assignmentType":2,"itemId":"S5KkcPH5EsxemRE2254xP","actionType":0}',
+   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623718436278&body=%7B%22source%22:%22secondfloor%22,%22activityId%22:1000020,%22encryptProjectId%22:%223QxuRgun5b9YAxzYb3VtQBbPjUuW%22,%22encryptAssignmentId%22:%223AexdhmAWtoCMsXKeoMcNybpcETT%22,%22assignmentType%22:3,%22itemId%22:%221000105988%22,%22actionType%22:0%7D',
         //headers: JSON.parse(kjjhd),
       headers: {
 
@@ -127,7 +164,7 @@ async function guanzhu (){
         if(logs)$.log(data)
 
           if(result.code == 0){
-               $.log(result.data.bizMsg);
+              $.log(result.data.bizMsg);
 //await notify.sendNotify(`${$.name} - ${$.UserName}`, `京东账号${$.index} ${$.UserName}`+'\n签到完成');
 } 
           
@@ -143,7 +180,7 @@ async function kaika (){
  return new Promise((resolve) => {
      
  let plant6_url = {
-   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623488582703&body={"source":"secondfloor","activityId":1000017,"encryptProjectId":"223UrxFje9Xdf58AbD6fMD6NKMcL","encryptAssignmentId":"3MMzgMajGcvh96Uc3EuxPuWPBeoy","assignmentType":3,"itemId":"1000001582","actionType":0}',
+   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623631976384&body={"source":"secondfloor","activityId":1000020,"encryptProjectId":"3QxuRgun5b9YAxzYb3VtQBbPjUuW","encryptAssignmentId":"QkFfdWRodTR6aQ==","assignmentType":7,"itemId":"792648922","actionType":0}',
         //headers: JSON.parse(kjjhd),
       headers: {
 
@@ -160,7 +197,7 @@ async function kaika (){
         if(logs)$.log(data)
 
           if(result.code == 0){
-               $.log(result.data.bizMsg);
+              $.log(result.data.bizMsg);
 //await notify.sendNotify(`${$.name} - ${$.UserName}`, `京东账号${$.index} ${$.UserName}`+'\n签到完成');
 } 
           
@@ -177,7 +214,7 @@ async function help(){
  return new Promise((resolve) => {
      
  let plant6_url = {
-   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623488586076&body={"source":"secondfloor","activityId":1000017,"encryptProjectId":"223UrxFje9Xdf58AbD6fMD6NKMcL","encryptAssignmentId":"2RX94zSHgdPNEEF7rQiGCrwQENaD","assignmentType":7,"itemId":"6301501284","actionType":0}',
+   		url: 'https://api.m.jd.com/api?functionId=superBrandDoTask&appid=ProductZ4Brand&client=wh5&t=1623718791664&body={"source":"secondfloor","activityId":1000020,"encryptProjectId":"3QxuRgun5b9YAxzYb3VtQBbPjUuW","encryptAssignmentId":"2zXnJEPXyLUQ7QGKJLS5TLKp9CDw","assignmentType":2,"itemId":"S5KkcRkpNpFGFKRKik_YMIg","actionType":0}',
         //headers: JSON.parse(kjjhd),
       headers: {
 
@@ -194,7 +231,7 @@ async function help(){
         if(logs)$.log(data)
 
           if(result.code == 0){
-               $.log(result.data.bizMsg);
+              $.log(result.data.bizMsg);
 //await notify.sendNotify(`${$.name} - ${$.UserName}`, `京东账号${$.index} ${$.UserName}`+'\n签到完成');
 } 
           
@@ -210,7 +247,7 @@ async function cj(){
  return new Promise((resolve) => {
      
  let plant6_url = {
-   		url: 'https://api.m.jd.com/api?functionId=superBrandTaskLottery&appid=ProductZ4Brand&client=wh5&t=1623488613811&body={"source":"secondfloor","activityId":1000017}',
+   		url: 'https://api.m.jd.com/api?functionId=superBrandTaskLottery&appid=ProductZ4Brand&client=wh5&t=1623719146379&body={"source":"secondfloor","activityId":1000020}',
         //headers: JSON.parse(kjjhd),
       headers: {
 
@@ -245,7 +282,7 @@ $.log(result.data.bizMsg);
  return new Promise((resolve) => {
      
  let plant6_url = {
-   		url: 'https://api.m.jd.com/api?functionId=superBrandTaskLottery&appid=ProductZ4Brand&client=wh5&t=1622650376384&body={"source":"sign","activityId":1000017,"encryptProjectId":"uK2fYitTgioETuevoY88bGEts3U","encryptAssignmentId":"zFayjeUTzZWJGwv2rVNWY4DNAQw"}',
+   		url: ' https://api.m.jd.com/api?functionId=superBrandTaskLottery&appid=ProductZ4Brand&client=wh5&t=1623719188977&body={"source":"sign","activityId":1000021,"encryptProjectId":"uK2fYitTgioETuevoY88bGEts3U","encryptAssignmentId":"zFayjeUTzZWJGwv2rVNWY4DNAQw"}',
         //headers: JSON.parse(kjjhd),
       headers: {
 
@@ -262,9 +299,9 @@ $.log(result.data.bizMsg);
         if(logs)$.log(data)
 
           if(result.data.bizCode == "TK000"){
-//await notify.sendNotify(`${$.name} - ${$.UserName}`, `京东账号${$.index} ${$.UserName}`+
-$.log(result.data.bizMsg);
+              $.log(result.data.bizMsg);
               console.log('\n抽奖京豆：'+result.data.result.userAwardInfo.beanNum);
+//await notify.sendNotify(`${$.name} - ${$.UserName}`, `京东账号${$.index} ${$.UserName}`+'\n抽奖京豆：'+result.data.result.userAwardInfo.beanNum);
               allMessage += `京东账号${$.index}-${$.nickName || $.UserName}\n抽奖京豆: ${result.data.result.userAwardInfo.beanNum}${$.index !== cookiesArr.length ? '\n\n' : '\n\n'}`;
 } 
           
