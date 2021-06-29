@@ -4,6 +4,9 @@
 入口 极速版 赚金币 种水果
 #柠檬我是大老板农场
 export dlbtz="true" //通知打开
+
+export dlbtz="false" //通知关闭
+
 5 0-23/6 * * * http://nm66.top/jd_wsdlb.js, tag=柠檬我是大老板农场, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 */
 
@@ -39,7 +42,7 @@ const JD_API_HOST = 'https://api.m.jd.com/client.action';
   for (let i = 0; i < cookiesArr.length; i++) {
     if (cookiesArr[i]) {
       cookie = cookiesArr[i];
-      ck2 = cookiesArr[Math.round(Math.random()*i)];
+      ck2 = cookiesArr[Math.round(Math.random()*5)];
       $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^; ]+)(?=;?)/) && cookie.match(/pt_pin=([^; ]+)(?=;?)/)[1])
       $.index = i + 1;
       $.isLogin = true;
